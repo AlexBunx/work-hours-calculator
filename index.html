@@ -68,6 +68,26 @@ details summary{cursor:pointer;color:var(--ac)}
 .card button:not(.p):not(.x):not(.cd){background:var(--bg);border:1px solid var(--ln)}
 .st{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}.st button{padding:8px 4px}
 .item>div:first-child{flex:1;cursor:pointer;padding:4px 0}
+
+/* design polish */
+.card{box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.sum{background:linear-gradient(180deg,color-mix(in srgb,var(--ac) 14%,var(--card)) 0,var(--card) 70%);padding:18px 14px 14px}
+.sum b{font-size:26px;letter-spacing:-.3px}
+.big{border-top:0;padding-top:6px}
+.big b{font-size:44px;letter-spacing:-1px;line-height:1.1}
+.big span{font-size:13px}
+details>summary{list-style:none;display:flex;align-items:center;gap:6px;color:var(--tx);font-weight:500;min-height:30px;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";flex:none;width:7px;height:7px;margin:0 8px 2px 4px;border-right:2px solid var(--ac);border-bottom:2px solid var(--ac);transform:rotate(-45deg);transition:transform .2s ease}
+details[open]>summary::before{transform:rotate(45deg);margin-bottom:4px}
+#setv{color:var(--mut);font-weight:400}
+.nav h1{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button{transition:transform .12s ease,opacity .12s ease,background-color .2s}
+button:active{transform:scale(.97)}
+.item{position:relative;padding-left:18px}
+.item::before{content:"";position:absolute;left:2px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--ac)}
+.item.k::before{background:var(--rd)}.item.v::before{background:#0a84ff}.item.o::before{background:var(--mut);opacity:.6}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
@@ -232,7 +252,7 @@ function render(){
   if(!days.length){L.innerHTML='<div class="empty">'+t("empty")+'</div>';return}
   L.innerHTML="";
   days.forEach(d=>{
-    const x=c[d],el=document.createElement("div");el.className="item";
+    const x=c[d],el=document.createElement("div");el.className="item"+(x.sick?" k":x.vac?" v":x.off?" o":"");
     const info=document.createElement("div");
     info.innerHTML=x.off?"<b>"+dl(d)+"</b> — <span class=\"off\">"+t("li_off")+"</span>":x.sick?"<b>"+dl(d)+"</b> — <span class=\"off\">"+t("li_sick")+"</span><br><small>"+fmt(x.h)+" "+u+" · "+fmt(pay(d,x))+" zł</small>":x.vac?"<b>"+dl(d)+"</b> — <span class=\"off\">"+t("li_vac")+"</span><br><small>"+fmt(x.h)+" "+u+" · "+fmt(pay(d,x))+" zł</small>":"<b>"+dl(d)+"</b> — "+fmt(x.h)+" "+u+"<br><small>"+fmt(pay(d,x))+" zł</small>";
     info.onclick=()=>{selectDay(d,true);$("ed").scrollIntoView({behavior:"smooth",block:"center"})};
@@ -290,6 +310,7 @@ $("prem").onchange=()=>{db.prem=$("prem").checked;save();render()};
 $("sick").onclick=()=>commit({h:parseFloat($("h").value)||8,s:"",e:"",sick:1});
 $("sp").oninput=()=>{const v=parseFloat($("sp").value);if(v>=0){db.sp=v;save();render()}};
 $("vac").onclick=()=>commit({h:parseFloat($("h").value)||8,s:"",e:"",vac:1});$("rate").oninput=()=>{const v=parseFloat($("rate").value);if(v>=0){db.rate=v;save();render();}};
+$("mt").onclick=()=>{const n=new Date();y=n.getFullYear();m=n.getMonth();$("d").value=n.getDate();render()};
 $("prev").onclick=()=>{m--;if(m<0){m=11;y--}$("d").value=Math.min(parseInt($("d").value)||1,dim());render()};
 $("next").onclick=()=>{m++;if(m>11){m=0;y++}$("d").value=Math.min(parseInt($("d").value)||1,dim());render()};
 
