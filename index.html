@@ -33,7 +33,8 @@ input,textarea{width:100%;font:inherit;background:var(--bg);color:var(--tx);bord
 .item:last-child{border:0}
 .item small{color:var(--mut);margin-left:8px;white-space:nowrap}
 .item br{display:none}
-#lw summary{padding:2px 0;font-size:15px}
+#lw summary,#calcard summary,#rp summary{padding:2px 0;font-size:15px}
+#cal{margin-top:10px}
 #list{margin-top:6px}
 .x{color:var(--rd);background:none;padding:6px 10px}
 .empty{color:var(--mut);text-align:center;padding:10px}
@@ -95,7 +96,7 @@ details summary{cursor:pointer;color:var(--ac)}
   <div class="st"><button id="off" data-i="off"></button><button id="sick" data-i="sick"></button><button id="vac" data-i="vac"></button></div>
 </div>
 
-<div class="card" id="calcard"><div class="cal" id="cal"></div></div>
+<details class="card" id="calcard"><summary data-i="cal_t"></summary><div class="cal" id="cal"></div></details>
 
 <details class="card" id="set">
   <summary><span data-i="settings"></span> · <span id="setv"></span></summary>
@@ -116,15 +117,15 @@ details summary{cursor:pointer;color:var(--ac)}
   </details>
 </div>
 
-<div class="card">
-  <b data-i="rep_title"></b>
+<details class="card" id="rp">
+  <summary data-i="rep_title"></summary>
   <div class="row" style="margin-top:10px">
     <div><label data-i="rep_name"></label><input id="rn" type="text" data-ph="rep_name_ph"></div>
     <div><label data-i="rep_lang"></label><select id="rl"><option value="ru">Русский</option><option value="pl">Polski</option><option value="en">English</option></select></div>
   </div>
   <button class="p" id="pdf" style="width:100%" data-i="rep_btn"></button>
   <div id="pdfmsg" style="color:var(--mut);font-size:14px;margin-top:8px"></div>
-</div>
+</details>
 
 <div class="card" style="text-align:center;font-size:15px"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe16nd2fWqV62IXGQYWcY2Y6QzOkCPnpTUR6yst1VxJNny38A/viewform" target="_blank" rel="noopener" style="color:var(--ac)">Оставить отзыв · Send feedback · Prześlij opinię</a></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -140,7 +141,7 @@ ru:{
  premOff:"Выключено: все часы по одной ставке, отпуск не оплачивается (umowa zlecenie).",
  lbl_day:"День",lbl_hours:"Часов",lbl_from:"С",lbl_to:"До",
  vac:"Отпуск",li_vac:"отпуск",p_vac:"отпуск",p_vacd:"Дней отпуска",vac_line:"Дней отпуска: {n} ({h} ч), оплата {p} zł",
- add:"Добавить / обновить",off:"Выходной",sick:"Больничный",empty:"Пока нет записей",list_t:"Записи за месяц",
+ add:"Добавить / обновить",off:"Выходной",sick:"Больничный",empty:"Пока нет записей",list_t:"Записи за месяц",cal_t:"Календарь",
  imp_sum:"Импорт из заметок / экспорт",imp_hint:"Вставь строки вида «2 - 8 (7:00 - 15:00)» — они добавятся в выбранный месяц.",
  do_imp:"Импортировать",added:"Добавлено: {n}",exp:"Копировать месяц",bk:"Копия данных",rs:"Восстановить",
  copied:"Скопировано",text_above:"Текст выше",done:"Готово",paste_backup:"Вставь копию в поле",
@@ -160,7 +161,7 @@ pl:{
  premOff:"Wyłączone: wszystkie godziny po jednej stawce, urlop nieopłacany (umowa zlecenie).",
  lbl_day:"Dzień",lbl_hours:"Godziny",lbl_from:"Od",lbl_to:"Do",
  vac:"Urlop",li_vac:"urlop",p_vac:"urlop",p_vacd:"Dni urlopu",vac_line:"Dni urlopu: {n} ({h} godz.), wypłata {p} zł",
- add:"Dodaj / zaktualizuj",off:"Dzień wolny",sick:"Chorobowe",empty:"Brak wpisów",list_t:"Wpisy w miesiącu",
+ add:"Dodaj / zaktualizuj",off:"Dzień wolny",sick:"Chorobowe",empty:"Brak wpisów",list_t:"Wpisy w miesiącu",cal_t:"Kalendarz",
  imp_sum:"Import z notatek / eksport",imp_hint:"Wklej wiersze w formacie „2 - 8 (7:00 - 15:00)” — zostaną dodane do wybranego miesiąca.",
  do_imp:"Importuj",added:"Dodano: {n}",exp:"Kopiuj miesiąc",bk:"Kopia danych",rs:"Przywróć",
  copied:"Skopiowano",text_above:"Tekst powyżej",done:"Gotowe",paste_backup:"Wklej kopię w pole",
@@ -180,7 +181,7 @@ en:{
  premOff:"Off: all hours at one rate, vacation is unpaid (umowa zlecenie).",
  lbl_day:"Day",lbl_hours:"Hours",lbl_from:"From",lbl_to:"To",
  vac:"Vacation",li_vac:"vacation",p_vac:"vacation",p_vacd:"Vacation days",vac_line:"Vacation days: {n} ({h} h), pay {p} zł",
- add:"Add / update",off:"Day off",sick:"Sick leave",empty:"No entries yet",list_t:"Entries this month",
+ add:"Add / update",off:"Day off",sick:"Sick leave",empty:"No entries yet",list_t:"Entries this month",cal_t:"Calendar",
  imp_sum:"Import from notes / export",imp_hint:"Paste lines like “2 - 8 (7:00 - 15:00)” — they will be added to the selected month.",
  do_imp:"Import",added:"Added: {n}",exp:"Copy month",bk:"Backup data",rs:"Restore",
  copied:"Copied",text_above:"Text above",done:"Done",paste_backup:"Paste the backup into the field",
