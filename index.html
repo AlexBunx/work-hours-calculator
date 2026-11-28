@@ -109,15 +109,6 @@ details summary{cursor:pointer;color:var(--ac)}
 
 <details class="card" id="lw"><summary id="lsum"></summary><div id="list"></div></details>
 
-<div class="card">
-  <details>
-    <summary data-i="imp_sum"></summary>
-    <p style="color:var(--mut);font-size:14px" data-i="imp_hint"></p>
-    <textarea id="imp" placeholder="2 - 8 (7:00 - 15:00)&#10;3 - 8 (7:00 - 15:00)"></textarea>
-    <div class="acts"><button class="p" id="doimp" data-i="do_imp"></button><button id="exp" data-i="exp"></button><button id="bk" data-i="bk"></button><button id="rs" data-i="rs"></button></div>
-  </details>
-</div>
-
 <details class="card" id="rp">
   <summary data-i="rep_title"></summary>
   <div class="row" style="margin-top:10px">
@@ -146,7 +137,7 @@ ru:{
  imp_sum:"Импорт из заметок / экспорт",imp_hint:"Вставь строки вида «2 - 8 (7:00 - 15:00)» — они добавятся в выбранный месяц.",
  do_imp:"Импортировать",added:"Добавлено: {n}",exp:"Копировать месяц",bk:"Копия данных",rs:"Восстановить",
  copied:"Скопировано",text_above:"Текст выше",done:"Готово",paste_backup:"Вставь копию в поле",
- rep_title:"Отчёт для рекрутера (PDF)",rep_name:"Имя в отчёте",rep_name_ph:"Имя Фамилия",rep_lang:"Язык отчёта",rep_btn:"Сформировать PDF за месяц",
+ rep_title:"Отчёт (PDF)",rep_name:"Имя в отчёте",rep_name_ph:"Имя Фамилия",rep_lang:"Язык отчёта",rep_btn:"Сформировать PDF за месяц",
  pdf_empty:"В этом месяце нет записей",pdf_nolib:"Не загрузилась библиотека PDF, проверь интернет",pdf_busy:"Формирую…",
  pdf_fail:"Не удалось сохранить PDF",pdf_nodl:"Сохранение файла недоступно в этом окне. Открой страницу в приложении Claude.",open_pdf:"Открыть PDF",
  sick_line:"Больничных дней: {n} ({h} ч), оплата {p} zł",u:"ч",li_off:"выходной",li_sick:"больничный",exp_head:"Час = {r} zl. Netto",
@@ -166,7 +157,7 @@ pl:{
  imp_sum:"Import z notatek / eksport",imp_hint:"Wklej wiersze w formacie „2 - 8 (7:00 - 15:00)” — zostaną dodane do wybranego miesiąca.",
  do_imp:"Importuj",added:"Dodano: {n}",exp:"Kopiuj miesiąc",bk:"Kopia danych",rs:"Przywróć",
  copied:"Skopiowano",text_above:"Tekst powyżej",done:"Gotowe",paste_backup:"Wklej kopię w pole",
- rep_title:"Raport dla rekrutera (PDF)",rep_name:"Imię w raporcie",rep_name_ph:"Imię Nazwisko",rep_lang:"Język raportu",rep_btn:"Utwórz PDF za miesiąc",
+ rep_title:"Raport (PDF)",rep_name:"Imię w raporcie",rep_name_ph:"Imię Nazwisko",rep_lang:"Język raportu",rep_btn:"Utwórz PDF za miesiąc",
  pdf_empty:"W tym miesiącu brak wpisów",pdf_nolib:"Nie załadowała się biblioteka PDF, sprawdź internet",pdf_busy:"Tworzę…",
  pdf_fail:"Nie udało się zapisać PDF",pdf_nodl:"Zapis pliku jest niedostępny w tym oknie. Otwórz stronę w aplikacji Claude.",open_pdf:"Otwórz PDF",
  sick_line:"Dni chorobowego: {n} ({h} godz.), wypłata {p} zł",u:"godz.",li_off:"dzień wolny",li_sick:"chorobowe",exp_head:"Godzina = {r} zł netto",
@@ -186,7 +177,7 @@ en:{
  imp_sum:"Import from notes / export",imp_hint:"Paste lines like “2 - 8 (7:00 - 15:00)” — they will be added to the selected month.",
  do_imp:"Import",added:"Added: {n}",exp:"Copy month",bk:"Backup data",rs:"Restore",
  copied:"Copied",text_above:"Text above",done:"Done",paste_backup:"Paste the backup into the field",
- rep_title:"Report for the recruiter (PDF)",rep_name:"Name in report",rep_name_ph:"First Last",rep_lang:"Report language",rep_btn:"Create PDF for the month",
+ rep_title:"Report (PDF)",rep_name:"Name in report",rep_name_ph:"First Last",rep_lang:"Report language",rep_btn:"Create PDF for the month",
  pdf_empty:"No entries this month",pdf_nolib:"The PDF library didn't load, check your connection",pdf_busy:"Creating…",
  pdf_fail:"Couldn't save the PDF",pdf_nodl:"Saving files isn't available in this window. Open the page in the Claude app.",open_pdf:"Open PDF",
  sick_line:"Sick days: {n} ({h} h), pay {p} zł",u:"h",li_off:"day off",li_sick:"sick leave",exp_head:"Hour = {r} zł net",
@@ -300,37 +291,10 @@ $("sp").oninput=()=>{const v=parseFloat($("sp").value);if(v>=0){db.sp=v;save();r
 $("vac").onclick=()=>commit({h:parseFloat($("h").value)||8,s:"",e:"",vac:1});$("rate").oninput=()=>{const v=parseFloat($("rate").value);if(v>=0){db.rate=v;save();render();}};
 $("prev").onclick=()=>{m--;if(m<0){m=11;y--}$("d").value=Math.min(parseInt($("d").value)||1,dim());render()};
 $("next").onclick=()=>{m++;if(m>11){m=0;y++}$("d").value=Math.min(parseInt($("d").value)||1,dim());render()};
-$("doimp").onclick=()=>{
-  const re=/^\s*(\d{1,2})\s*-\s*(\d+(?:[.,]\d+)?)\s*(?:\(\s*(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})\s*\))?/;
-  let n=0;
-  const rk=/^\s*(\d{1,2})\s*-\s*(?:больничный|бол|chorobowe|zwolnienie|L4|sick leave|sick)\s*(\d+(?:[.,]\d+)?)?/i;
-  const ro=/^\s*(\d{1,2})\s*-\s*(?:выходной|вых|dzień wolny|wolne|wolny|day off|off)/i;
-  const rv=/^\s*(\d{1,2})\s*-\s*(?:отпуск|отп|urlop|vacation)\s*(\d+(?:[.,]\d+)?)?/i;
-  $("imp").value.split("\n").forEach(l=>{const o=ro.exec(l);if(o){cur()[+o[1]]={h:0,s:"",e:"",off:1};n++;return;}
-    const k=rk.exec(l);if(k){cur()[+k[1]]={h:k[2]?parseFloat(k[2].replace(",",".")):8,s:"",e:"",sick:1};n++;return;}
-    const v=rv.exec(l);if(v){cur()[+v[1]]={h:v[2]?parseFloat(v[2].replace(",",".")):8,s:"",e:"",vac:1};n++;return;}
-    const r=re.exec(l);if(!r)return;
-    const d=+r[1],h=parseFloat(r[2].replace(",","."));
-    if(d<1||d>31||!(h>0))return;
-    const pt=x=>x?pad(x.split(":")[0])+":"+x.split(":")[1]:"";
-    cur()[d]={h:h,s:pt(r[3]),e:pt(r[4])};n++;
-  });
-  save();render();$("imp").value="";
-  $("doimp").textContent=t("added",{n:n});setTimeout(()=>{$("doimp").textContent=t("do_imp")},1800);
-};
-$("exp").onclick=async()=>{
-  const c=cur();
-  let s=I18N[ui].mo[m]+"\n"+t("exp_head",{r:db.rate})+"\n\n";
-  Object.keys(c).map(Number).sort((a,b)=>a-b).forEach(d=>{const x=c[d];if(x.off){s+=d+" - "+t("li_off")+"\n";return}if(x.sick){s+=d+" - "+t("li_sick")+" "+fmt(x.h)+"\n";return}if(x.vac){s+=d+" - "+t("li_vac")+" "+fmt(x.h)+"\n";return}s+=d+" - "+fmt(x.h)+(x.s?" ("+x.s.replace(/^0/,"")+" - "+x.e.replace(/^0/,"")+")":"")+"\n"});
-  try{await navigator.clipboard.writeText(s);$("exp").textContent=t("copied")}catch(e){$("imp").value=s;$("exp").textContent=t("text_above")}
-  setTimeout(()=>{$("exp").textContent=t("exp")},1800);
-};
 
 $("rn").value=db.name||"";$("rl").value=db.lang||ui;
 $("rn").oninput=()=>{db.name=$("rn").value;save()};
 $("rl").onchange=()=>{db.lang=$("rl").value;save()};
-$("bk").onclick=async()=>{const s=JSON.stringify(db);try{await navigator.clipboard.writeText(s);$("bk").textContent=t("copied")}catch(e){$("imp").value=s;$("bk").textContent=t("text_above")}setTimeout(()=>{$("bk").textContent=t("bk")},1800)};
-$("rs").onclick=()=>{try{const o=JSON.parse($("imp").value);if(!o||!o.months)throw 0;db=o;save();$("imp").value="";applyLang();$("rs").textContent=t("done")}catch(e){$("rs").textContent=t("paste_backup")}setTimeout(()=>{$("rs").textContent=t("rs")},1800)};
 $("pdf").onclick=async()=>{
   const rl=$("rl").value,L=I18N[rl],c=cur(),days=Object.keys(c).map(Number).filter(d=>!c[d].off).sort((a,b)=>a-b),msg=$("pdfmsg");
   if(!days.length){msg.textContent=t("pdf_empty");return}
