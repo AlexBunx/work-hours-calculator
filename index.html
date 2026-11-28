@@ -59,9 +59,7 @@ details summary{cursor:pointer;color:var(--ac)}
   <div class="rate"><label style="margin:0" data-i="rate"></label><input id="rate" type="number" inputmode="decimal" step="0.5"></div>
   <label class="tg"><input id="prem" type="checkbox"><span data-i="prem"></span></label>
   <div class="ph" id="premhint"></div>
-  <div class="rate" style="margin-top:12px"><label style="margin:0" data-i="sp"></label><input id="sp" type="number" inputmode="decimal" step="1"></div>
-  <div class="rate" style="margin-top:12px"><label style="margin:0" data-i="vp"></label><input id="vp" type="number" inputmode="decimal" step="1"></div>
-</div>
+  <div class="rate" style="margin-top:12px"><label style="margin:0" data-i="sp"></label><input id="sp" type="number" inputmode="decimal" step="1"></div></div>
 
 <div class="card">
   <div class="row">
@@ -102,11 +100,11 @@ ru:{
  mo:["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
  wdn:["вс","пн","вт","ср","чт","пт","сб"],
  title:"Часы",sd:"дней",sh:"часов",sa:"средн./день",sm:"netto за месяц",
- rate:"Ставка, zł/час (netto)",prem:"Надбавки (umowa o pracę)",sp:"Больничный, % от ставки",
- premOn:"9–10 ч: +50%, с 11 ч: +100%, работа в сб/вс: +100% за весь день. Надбавки за месяц: +{x} zł",
- premOff:"Выключено: все часы по одной ставке (umowa zlecenie).",
+ rate:"Ставка, zł/час (netto)",prem:"Umowa o pracę: надбавки и оплата отпуска",sp:"Больничный, % от ставки",
+ premOn:"9–10 ч: +50%, с 11 ч: +100%, работа в сб/вс: +100% за весь день. Отпуск оплачивается по средней ставке. Надбавки за месяц: +{x} zł",
+ premOff:"Выключено: все часы по одной ставке, отпуск не оплачивается (umowa zlecenie).",
  lbl_day:"День",lbl_hours:"Часов",lbl_from:"С",lbl_to:"До",
- vac:"Отпуск",vp:"Отпуск, % от ставки",li_vac:"отпуск",p_vac:"отпуск",p_vacd:"Дней отпуска",vac_line:"Дней отпуска: {n} ({h} ч), оплата {p} zł",
+ vac:"Отпуск",li_vac:"отпуск",p_vac:"отпуск",p_vacd:"Дней отпуска",vac_line:"Дней отпуска: {n} ({h} ч), оплата {p} zł",
  add:"Добавить / обновить",off:"Выходной",sick:"Больничный",empty:"Пока нет записей",
  imp_sum:"Импорт из заметок / экспорт",imp_hint:"Вставь строки вида «2 - 8 (7:00 - 15:00)» — они добавятся в выбранный месяц.",
  do_imp:"Импортировать",added:"Добавлено: {n}",exp:"Копировать месяц",bk:"Копия данных",rs:"Восстановить",
@@ -122,11 +120,11 @@ pl:{
  mo:["Styczeń","Luty","Marzec","Kwiecień","Maj","Czerwiec","Lipiec","Sierpień","Wrzesień","Październik","Listopad","Grudzień"],
  wdn:["nd","pn","wt","śr","cz","pt","sb"],
  title:"Godziny",sd:"dni",sh:"godzin",sa:"śr./dzień",sm:"netto za miesiąc",
- rate:"Stawka, zł/godz. (netto)",prem:"Dodatki (umowa o pracę)",sp:"Chorobowe, % stawki",
- premOn:"Godz. 9–10: +50%, od 11 godz.: +100%, praca w sob./niedz.: +100% za cały dzień. Dodatki w miesiącu: +{x} zł",
- premOff:"Wyłączone: wszystkie godziny po jednej stawce (umowa zlecenie).",
+ rate:"Stawka, zł/godz. (netto)",prem:"Umowa o pracę: dodatki i płatny urlop",sp:"Chorobowe, % stawki",
+ premOn:"Godz. 9–10: +50%, od 11 godz.: +100%, praca w sob./niedz.: +100% za cały dzień. Urlop płatny wg średniej stawki. Dodatki w miesiącu: +{x} zł",
+ premOff:"Wyłączone: wszystkie godziny po jednej stawce, urlop nieopłacany (umowa zlecenie).",
  lbl_day:"Dzień",lbl_hours:"Godziny",lbl_from:"Od",lbl_to:"Do",
- vac:"Urlop",vp:"Urlop, % stawki",li_vac:"urlop",p_vac:"urlop",p_vacd:"Dni urlopu",vac_line:"Dni urlopu: {n} ({h} godz.), wypłata {p} zł",
+ vac:"Urlop",li_vac:"urlop",p_vac:"urlop",p_vacd:"Dni urlopu",vac_line:"Dni urlopu: {n} ({h} godz.), wypłata {p} zł",
  add:"Dodaj / zaktualizuj",off:"Dzień wolny",sick:"Chorobowe",empty:"Brak wpisów",
  imp_sum:"Import z notatek / eksport",imp_hint:"Wklej wiersze w formacie „2 - 8 (7:00 - 15:00)” — zostaną dodane do wybranego miesiąca.",
  do_imp:"Importuj",added:"Dodano: {n}",exp:"Kopiuj miesiąc",bk:"Kopia danych",rs:"Przywróć",
@@ -142,11 +140,11 @@ en:{
  mo:["January","February","March","April","May","June","July","August","September","October","November","December"],
  wdn:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
  title:"Hours",sd:"days",sh:"hours",sa:"avg/day",sm:"net for the month",
- rate:"Rate, zł/hour (net)",prem:"Pay premiums (umowa o pracę)",sp:"Sick pay, % of rate",
- premOn:"Hours 9–10: +50%, from hour 11: +100%, work on Sat/Sun: +100% for the whole day. Premiums this month: +{x} zł",
- premOff:"Off: all hours at one rate (umowa zlecenie).",
+ rate:"Rate, zł/hour (net)",prem:"Umowa o pracę: premiums and paid vacation",sp:"Sick pay, % of rate",
+ premOn:"Hours 9–10: +50%, from hour 11: +100%, work on Sat/Sun: +100% for the whole day. Vacation is paid at the average rate. Premiums this month: +{x} zł",
+ premOff:"Off: all hours at one rate, vacation is unpaid (umowa zlecenie).",
  lbl_day:"Day",lbl_hours:"Hours",lbl_from:"From",lbl_to:"To",
- vac:"Vacation",vp:"Vacation pay, % of rate",li_vac:"vacation",p_vac:"vacation",p_vacd:"Vacation days",vac_line:"Vacation days: {n} ({h} h), pay {p} zł",
+ vac:"Vacation",li_vac:"vacation",p_vac:"vacation",p_vacd:"Vacation days",vac_line:"Vacation days: {n} ({h} h), pay {p} zł",
  add:"Add / update",off:"Day off",sick:"Sick leave",empty:"No entries yet",
  imp_sum:"Import from notes / export",imp_hint:"Paste lines like “2 - 8 (7:00 - 15:00)” — they will be added to the selected month.",
  do_imp:"Import",added:"Added: {n}",exp:"Copy month",bk:"Backup data",rs:"Restore",
@@ -173,9 +171,14 @@ const pad=n=>String(n).padStart(2,"0");
 const dl=d=>d+" "+I18N[ui].mo[m].slice(0,3).toLowerCase()+", "+I18N[ui].wdn[new Date(y,m,d).getDay()];
 const t2m=x=>{const[a,b]=x.split(":").map(Number);return a*60+b};
 const fmt=(n,l)=>{const s=(Math.round(n*100)/100).toString();return (l||ui)==="en"?s:s.replace(".",",")};
+function avgRate(){
+  const c=cur();let p=0,h=0;
+  for(const k in c){const e=c[k];if(e.off||e.sick||e.vac||!(e.h>0))continue;p+=pay(+k,e);h+=e.h}
+  return h>0?p/h:db.rate;
+}
 function pay(d,e){
   const h=e.h;if(e.off||!(h>0))return 0;
-  const r=db.rate;if(e.sick)return h*r*(db.sp==null?80:db.sp)/100;if(e.vac)return h*r*(db.vp==null?100:db.vp)/100;if(!db.prem)return h*r;
+  const r=db.rate;if(e.sick)return h*avgRate()*(db.sp==null?80:db.sp)/100;if(e.vac)return db.prem?h*avgRate():0;if(!db.prem)return h*r;
   const w=new Date(y,m,d).getDay();
   if(w===0||w===6)return h*r*2;
   return Math.min(h,8)*r+Math.min(Math.max(h-8,0),2)*r*1.5+Math.max(h-10,0)*r*2;
@@ -185,9 +188,7 @@ function render(){
   $("mt").textContent=I18N[ui].mo[m]+" "+y;
   $("rate").value=db.rate;
   $("prem").checked=!!db.prem;
-  if(document.activeElement!==$("sp"))$("sp").value=db.sp==null?80:db.sp;
-  if(document.activeElement!==$("vp"))$("vp").value=db.vp==null?100:db.vp;
-  const c=cur(),days=Object.keys(c).map(Number).sort((a,b)=>a-b),u=t("u");
+  if(document.activeElement!==$("sp"))$("sp").value=db.sp==null?80:db.sp;  const c=cur(),days=Object.keys(c).map(Number).sort((a,b)=>a-b),u=t("u");
   let th=0,sh=0,sn=0,spay=0,vh=0,vn=0,vpay=0;
   days.forEach(d=>{const e=c[d];if(e.sick){sn++;sh+=e.h;spay+=pay(d,e)}else if(e.vac){vn++;vh+=e.h;vpay+=pay(d,e)}else th+=e.h});
   const wd=days.filter(d=>!c[d].off&&!c[d].sick&&!c[d].vac).length;
@@ -232,9 +233,7 @@ $("off").onclick=()=>{const d=parseInt($("d").value);if(!(d>=1&&d<=31))return;cu
 $("prem").onchange=()=>{db.prem=$("prem").checked;save();render()};
 $("sick").onclick=()=>{const d=parseInt($("d").value),h=parseFloat($("h").value)||8;if(!(d>=1&&d<=31))return;cur()[d]={h:h,s:"",e:"",sick:1};save();render();$("d").value=Math.min(d+1,31)};
 $("sp").oninput=()=>{const v=parseFloat($("sp").value);if(v>=0){db.sp=v;save();render()}};
-$("vac").onclick=()=>{const d=parseInt($("d").value),h=parseFloat($("h").value)||8;if(!(d>=1&&d<=31))return;cur()[d]={h:h,s:"",e:"",vac:1};save();render();$("d").value=Math.min(d+1,31)};
-$("vp").oninput=()=>{const v=parseFloat($("vp").value);if(v>=0){db.vp=v;save();render()}};
-$("rate").oninput=()=>{const v=parseFloat($("rate").value);if(v>=0){db.rate=v;save();render();}};
+$("vac").onclick=()=>{const d=parseInt($("d").value),h=parseFloat($("h").value)||8;if(!(d>=1&&d<=31))return;cur()[d]={h:h,s:"",e:"",vac:1};save();render();$("d").value=Math.min(d+1,31)};$("rate").oninput=()=>{const v=parseFloat($("rate").value);if(v>=0){db.rate=v;save();render();}};
 $("prev").onclick=()=>{m--;if(m<0){m=11;y--}render()};
 $("next").onclick=()=>{m++;if(m>11){m=0;y++}render()};
 $("doimp").onclick=()=>{
