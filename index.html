@@ -124,7 +124,6 @@ details summary{cursor:pointer;color:var(--ac)}
 </div>
 
 <div class="card" style="text-align:center;font-size:15px"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe16nd2fWqV62IXGQYWcY2Y6QzOkCPnpTUR6yst1VxJNny38A/viewform" target="_blank" rel="noopener" style="color:var(--ac)">Оставить отзыв · Send feedback · Prześlij opinię</a></div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const TITLE_SUFFIX=" — demo";
@@ -348,11 +347,12 @@ $("pdf").onclick=async()=>{
   F(11);let th=0,wk=0,sk=0,skh=0,vc=0,vch=0;
   days.forEach((d,i)=>{
     const e=c[d],py=y0+26+i*20;
+    if(e.vac||e.sick){x.fillStyle=e.sick?"#fde2e2":"#dbeafe";x.fillRect(40*S,(py-14)*S,515*S,19*S)}
     x.fillStyle="#000";
     T(pad(d)+"."+pad(m+1)+"."+y,40,py);
     T(L.wdn[new Date(y,m,d).getDay()],140,py);
-    if(e.vac){x.fillStyle="#888";T(t("p_vac",null,rl),230,py);T(fmt(e.h,rl),555,py,"right");vc++;vch+=e.h}
-    else if(e.sick){x.fillStyle="#888";T(t("p_sick",null,rl),230,py);T(fmt(e.h,rl),555,py,"right");sk++;skh+=e.h}
+    if(e.vac){F(11,1);x.fillStyle="#1e40af";T(t("p_vac",null,rl),230,py);F(11);x.fillStyle="#000";T(fmt(e.h,rl),555,py,"right");vc++;vch+=e.h}
+    else if(e.sick){F(11,1);x.fillStyle="#b91c1c";T(t("p_sick",null,rl),230,py);F(11);x.fillStyle="#000";T(fmt(e.h,rl),555,py,"right");sk++;skh+=e.h}
     else{T(e.s||"",230,py);T(e.e||"",300,py);T(fmt(e.h,rl),555,py,"right");th+=e.h;wk++}
     LN(py+6,"#e5e5e5");
   });
