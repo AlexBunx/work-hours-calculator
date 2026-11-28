@@ -33,7 +33,7 @@ input,textarea{width:100%;font:inherit;background:var(--bg);color:var(--tx);bord
 .item:last-child{border:0}
 .item small{color:var(--mut);margin-left:8px;white-space:nowrap}
 .item br{display:none}
-#lw summary,#calcard summary,#rp summary{padding:2px 0;font-size:15px}
+#lw summary,#calcard summary,#rp summary,#ed summary{padding:2px 0;font-size:15px}
 #cal{margin-top:10px}
 #list{margin-top:6px}
 .x{color:var(--rd);background:none;padding:6px 10px}
@@ -60,7 +60,7 @@ details summary{cursor:pointer;color:var(--ac)}
 .cd.o,.cd.we{color:var(--mut)}
 .cd.td::after{content:"";position:absolute;top:4px;width:4px;height:4px;border-radius:50%;background:var(--ac)}
 .cd.sel{outline:2px solid var(--ac);outline-offset:1px}
-.edh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.edh b{font-size:19px}
+.edh{display:flex;justify-content:flex-end;align-items:center;margin:4px 0 0}.edh b{font-size:19px}
 .chips{display:flex;gap:8px;margin-bottom:12px}
 .chips button{flex:1;padding:8px;line-height:1.25;background:var(--bg);border:1px solid var(--ln);font-weight:600}
 .chips small{font-weight:400;color:var(--mut)}
@@ -82,8 +82,9 @@ details summary{cursor:pointer;color:var(--ac)}
   <div id="sk" style="grid-column:1/-1;color:var(--mut);font-size:13px;white-space:pre-line"></div>
 </div>
 
-<div class="card" id="ed">
-  <div class="edh"><b id="sel"></b><button class="x" id="clr">✕</button></div>
+<details class="card" id="ed">
+  <summary><span data-i="ed_t"></span> · <span id="sel"></span></summary>
+  <div class="edh"><button class="x" id="clr">✕</button></div>
   <label data-i="shift"></label>
   <div class="chips"><button id="q8"></button><button id="q10"></button></div>
   <div class="row">
@@ -94,7 +95,7 @@ details summary{cursor:pointer;color:var(--ac)}
   </div>
   <button class="p" id="add" style="width:100%" data-i="add"></button>
   <div class="st"><button id="off" data-i="off"></button><button id="sick" data-i="sick"></button><button id="vac" data-i="vac"></button></div>
-</div>
+</details>
 
 <details class="card" id="calcard"><summary data-i="cal_t"></summary><div class="cal" id="cal"></div></details>
 
@@ -141,7 +142,7 @@ ru:{
  premOff:"Выключено: все часы по одной ставке, отпуск не оплачивается (umowa zlecenie).",
  lbl_day:"День",lbl_hours:"Часов",lbl_from:"С",lbl_to:"До",
  vac:"Отпуск",li_vac:"отпуск",p_vac:"отпуск",p_vacd:"Дней отпуска",vac_line:"Дней отпуска: {n} ({h} ч), оплата {p} zł",
- add:"Добавить / обновить",off:"Выходной",sick:"Больничный",empty:"Пока нет записей",list_t:"Записи за месяц",cal_t:"Календарь",
+ add:"Добавить / обновить",off:"Выходной",sick:"Больничный",empty:"Пока нет записей",list_t:"Записи за месяц",ed_t:"Запись дня",cal_t:"Календарь",
  imp_sum:"Импорт из заметок / экспорт",imp_hint:"Вставь строки вида «2 - 8 (7:00 - 15:00)» — они добавятся в выбранный месяц.",
  do_imp:"Импортировать",added:"Добавлено: {n}",exp:"Копировать месяц",bk:"Копия данных",rs:"Восстановить",
  copied:"Скопировано",text_above:"Текст выше",done:"Готово",paste_backup:"Вставь копию в поле",
@@ -161,7 +162,7 @@ pl:{
  premOff:"Wyłączone: wszystkie godziny po jednej stawce, urlop nieopłacany (umowa zlecenie).",
  lbl_day:"Dzień",lbl_hours:"Godziny",lbl_from:"Od",lbl_to:"Do",
  vac:"Urlop",li_vac:"urlop",p_vac:"urlop",p_vacd:"Dni urlopu",vac_line:"Dni urlopu: {n} ({h} godz.), wypłata {p} zł",
- add:"Dodaj / zaktualizuj",off:"Dzień wolny",sick:"Chorobowe",empty:"Brak wpisów",list_t:"Wpisy w miesiącu",cal_t:"Kalendarz",
+ add:"Dodaj / zaktualizuj",off:"Dzień wolny",sick:"Chorobowe",empty:"Brak wpisów",list_t:"Wpisy w miesiącu",ed_t:"Wpis dnia",cal_t:"Kalendarz",
  imp_sum:"Import z notatek / eksport",imp_hint:"Wklej wiersze w formacie „2 - 8 (7:00 - 15:00)” — zostaną dodane do wybranego miesiąca.",
  do_imp:"Importuj",added:"Dodano: {n}",exp:"Kopiuj miesiąc",bk:"Kopia danych",rs:"Przywróć",
  copied:"Skopiowano",text_above:"Tekst powyżej",done:"Gotowe",paste_backup:"Wklej kopię w pole",
@@ -181,7 +182,7 @@ en:{
  premOff:"Off: all hours at one rate, vacation is unpaid (umowa zlecenie).",
  lbl_day:"Day",lbl_hours:"Hours",lbl_from:"From",lbl_to:"To",
  vac:"Vacation",li_vac:"vacation",p_vac:"vacation",p_vacd:"Vacation days",vac_line:"Vacation days: {n} ({h} h), pay {p} zł",
- add:"Add / update",off:"Day off",sick:"Sick leave",empty:"No entries yet",list_t:"Entries this month",cal_t:"Calendar",
+ add:"Add / update",off:"Day off",sick:"Sick leave",empty:"No entries yet",list_t:"Entries this month",ed_t:"Day entry",cal_t:"Calendar",
  imp_sum:"Import from notes / export",imp_hint:"Paste lines like “2 - 8 (7:00 - 15:00)” — they will be added to the selected month.",
  do_imp:"Import",added:"Added: {n}",exp:"Copy month",bk:"Backup data",rs:"Restore",
  copied:"Copied",text_above:"Text above",done:"Done",paste_backup:"Paste the backup into the field",
@@ -262,7 +263,7 @@ document.querySelectorAll("#lang button").forEach(b=>{b.onclick=()=>{ui=b.datase
 $("s").oninput=calc;$("e").oninput=calc;
 const dim=()=>new Date(y,m+1,0).getDate();
 const nextDay=d=>Math.min(d+1,dim());
-function selectDay(d,load){$("d").value=d;const x=cur()[d];if(load&&x&&!x.off){$("s").value=x.s||"";$("e").value=x.e||"";$("h").value=x.h}render()}
+function selectDay(d,load){$("ed").open=true;$("d").value=d;const x=cur()[d];if(load&&x&&!x.off){$("s").value=x.s||"";$("e").value=x.e||"";$("h").value=x.h}render()}
 function commit(o){const d=parseInt($("d").value);if(!(d>=1&&d<=dim()))return;cur()[d]=o;save();selectDay(nextDay(d))}
 function quick(s,e,h){$("s").value=s;$("e").value=e;$("h").value=h;commit({h:h,s:s,e:e})}
 $("q8").onclick=()=>quick("07:00","15:00",8);$("q10").onclick=()=>quick("07:00","17:00",10);
