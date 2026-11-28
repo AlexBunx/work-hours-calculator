@@ -29,9 +29,12 @@ input,textarea{width:100%;font:inherit;background:var(--bg);color:var(--tx);bord
 .rate{display:flex;align-items:center;gap:10px}
 .rate label{flex:1}
 .rate input{width:90px}
-.item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--ln)}
+.item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--ln)}
 .item:last-child{border:0}
-.item small{color:var(--mut)}
+.item small{color:var(--mut);margin-left:8px;white-space:nowrap}
+.item br{display:none}
+#lw summary{padding:2px 0;font-size:15px}
+#list{margin-top:6px}
 .x{color:var(--rd);background:none;padding:6px 10px}
 .empty{color:var(--mut);text-align:center;padding:10px}
 textarea{min-height:110px}
@@ -102,7 +105,7 @@ details summary{cursor:pointer;color:var(--ac)}
   <div class="st"><button id="off" data-i="off"></button><button id="sick" data-i="sick"></button><button id="vac" data-i="vac"></button></div>
 </div>
 
-<div class="card" id="list"></div>
+<details class="card" id="lw"><summary id="lsum"></summary><div id="list"></div></details>
 
 <div class="card">
   <details>
@@ -137,7 +140,7 @@ ru:{
  premOff:"Выключено: все часы по одной ставке, отпуск не оплачивается (umowa zlecenie).",
  lbl_day:"День",lbl_hours:"Часов",lbl_from:"С",lbl_to:"До",
  vac:"Отпуск",li_vac:"отпуск",p_vac:"отпуск",p_vacd:"Дней отпуска",vac_line:"Дней отпуска: {n} ({h} ч), оплата {p} zł",
- add:"Добавить / обновить",off:"Выходной",sick:"Больничный",empty:"Пока нет записей",
+ add:"Добавить / обновить",off:"Выходной",sick:"Больничный",empty:"Пока нет записей",list_t:"Записи за месяц",
  imp_sum:"Импорт из заметок / экспорт",imp_hint:"Вставь строки вида «2 - 8 (7:00 - 15:00)» — они добавятся в выбранный месяц.",
  do_imp:"Импортировать",added:"Добавлено: {n}",exp:"Копировать месяц",bk:"Копия данных",rs:"Восстановить",
  copied:"Скопировано",text_above:"Текст выше",done:"Готово",paste_backup:"Вставь копию в поле",
@@ -157,7 +160,7 @@ pl:{
  premOff:"Wyłączone: wszystkie godziny po jednej stawce, urlop nieopłacany (umowa zlecenie).",
  lbl_day:"Dzień",lbl_hours:"Godziny",lbl_from:"Od",lbl_to:"Do",
  vac:"Urlop",li_vac:"urlop",p_vac:"urlop",p_vacd:"Dni urlopu",vac_line:"Dni urlopu: {n} ({h} godz.), wypłata {p} zł",
- add:"Dodaj / zaktualizuj",off:"Dzień wolny",sick:"Chorobowe",empty:"Brak wpisów",
+ add:"Dodaj / zaktualizuj",off:"Dzień wolny",sick:"Chorobowe",empty:"Brak wpisów",list_t:"Wpisy w miesiącu",
  imp_sum:"Import z notatek / eksport",imp_hint:"Wklej wiersze w formacie „2 - 8 (7:00 - 15:00)” — zostaną dodane do wybranego miesiąca.",
  do_imp:"Importuj",added:"Dodano: {n}",exp:"Kopiuj miesiąc",bk:"Kopia danych",rs:"Przywróć",
  copied:"Skopiowano",text_above:"Tekst powyżej",done:"Gotowe",paste_backup:"Wklej kopię w pole",
@@ -177,7 +180,7 @@ en:{
  premOff:"Off: all hours at one rate, vacation is unpaid (umowa zlecenie).",
  lbl_day:"Day",lbl_hours:"Hours",lbl_from:"From",lbl_to:"To",
  vac:"Vacation",li_vac:"vacation",p_vac:"vacation",p_vacd:"Vacation days",vac_line:"Vacation days: {n} ({h} h), pay {p} zł",
- add:"Add / update",off:"Day off",sick:"Sick leave",empty:"No entries yet",
+ add:"Add / update",off:"Day off",sick:"Sick leave",empty:"No entries yet",list_t:"Entries this month",
  imp_sum:"Import from notes / export",imp_hint:"Paste lines like “2 - 8 (7:00 - 15:00)” — they will be added to the selected month.",
  do_imp:"Import",added:"Added: {n}",exp:"Copy month",bk:"Backup data",rs:"Restore",
  copied:"Copied",text_above:"Text above",done:"Done",paste_backup:"Paste the backup into the field",
@@ -231,13 +234,13 @@ function render(){
   $("sk").textContent=[sn?t("sick_line",{n:sn,h:fmt(sh),p:fmt(spay)}):"",vn?t("vac_line",{n:vn,h:fmt(vh),p:fmt(vpay)}):""].filter(Boolean).join("\n");
   $("premhint").textContent=db.prem?t("premOn",{x:fmt(tp-spay-vpay-th*db.rate)}):t("premOff");
   drawCal(c);
-  const L=$("list");
+  const L=$("list");$("lsum").textContent=t("list_t")+" ("+days.length+")";
   if(!days.length){L.innerHTML='<div class="empty">'+t("empty")+'</div>';return}
   L.innerHTML="";
   days.forEach(d=>{
     const x=c[d],el=document.createElement("div");el.className="item";
     const info=document.createElement("div");
-    info.innerHTML=x.off?"<b>"+dl(d)+"</b> — <span class=\"off\">"+t("li_off")+"</span>":x.sick?"<b>"+dl(d)+"</b> — <span class=\"off\">"+t("li_sick")+"</span><br><small>"+fmt(x.h)+" "+u+" · "+fmt(pay(d,x))+" zł</small>":x.vac?"<b>"+dl(d)+"</b> — <span class=\"off\">"+t("li_vac")+"</span><br><small>"+fmt(x.h)+" "+u+" · "+fmt(pay(d,x))+" zł</small>":"<b>"+dl(d)+"</b> — "+fmt(x.h)+" "+u+"<br><small>"+(x.s?x.s+" – "+x.e+" · ":"")+fmt(pay(d,x))+" zł</small>";
+    info.innerHTML=x.off?"<b>"+dl(d)+"</b> — <span class=\"off\">"+t("li_off")+"</span>":x.sick?"<b>"+dl(d)+"</b> — <span class=\"off\">"+t("li_sick")+"</span><br><small>"+fmt(x.h)+" "+u+" · "+fmt(pay(d,x))+" zł</small>":x.vac?"<b>"+dl(d)+"</b> — <span class=\"off\">"+t("li_vac")+"</span><br><small>"+fmt(x.h)+" "+u+" · "+fmt(pay(d,x))+" zł</small>":"<b>"+dl(d)+"</b> — "+fmt(x.h)+" "+u+"<br><small>"+fmt(pay(d,x))+" zł</small>";
     info.onclick=()=>{selectDay(d,true);$("ed").scrollIntoView({behavior:"smooth",block:"center"})};
     const b=document.createElement("button");b.className="x";b.textContent="✕";
     b.onclick=()=>{delete c[d];save();render()};
